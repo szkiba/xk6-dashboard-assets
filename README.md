@@ -37,6 +37,23 @@ xk6-dashboard-assets/
 | `@xk6-dashboard-assets/report` | Single-page application for generating static HTML reports from test results. Built with Preact. |
 | `@xk6-dashboard-assets/ui` | Real-time dashboard web interface for monitoring test execution. Built with React. |
 
+## Public API
+
+This repository is a Go module that provides embedded static assets for xk6-dashboard. The assets are designed to be embedded into the main xk6-dashboard Go extension using Go's `embed` package.
+
+The module exposes three public functions:
+
+- **`func UI() fs.FS`** - Returns an embedded filesystem containing the live dashboard single-page application. This includes all HTML, JavaScript, CSS, and other assets needed for the interactive web interface.
+
+- **`func Report() []byte`** - Returns the embedded HTML content for the static report single-page application. This is a self-contained HTML file that can be saved and viewed offline.
+
+- **`func Config() json.RawMessage`** - Returns the embedded default configuration as raw JSON. This provides the default panel and visualization settings for the dashboard.
+
+The embedded assets are located in:
+- `packages/ui/dist/*` - Complete UI application bundle
+- `packages/report/dist/index.html` - Standalone report HTML
+- `packages/config/dist/config.json` - Default configuration
+
 ## Development
 
 ### Prerequisites
