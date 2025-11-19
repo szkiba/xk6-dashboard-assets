@@ -16,8 +16,6 @@
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/go:1": { "version": "1.25" },
     "ghcr.io/devcontainers/features/node:1": { "version": "24" },
-    "ghcr.io/michidk/devcontainers-features/bun:1": { "version": "1.2.12" },
-    "ghcr.io/grafana/devcontainer-features/xk6:1": { "version": "1.1.4" },
     "ghcr.io/grafana/devcontainer-features/k6:1": { "version": "1.4.0" }
   },
 
