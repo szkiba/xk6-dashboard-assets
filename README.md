@@ -54,6 +54,29 @@ The embedded assets are located in:
 - `packages/report/dist/index.html` - Standalone report HTML
 - `packages/config/dist/config.json` - Default configuration
 
+## Versioning
+
+This project uses a unique versioning approach due to its dual nature as both a Node.js monorepo and a Go module:
+
+### Frontend Packages
+
+The packages in the monorepo (`@xk6-dashboard-assets/*`) are **never published to npm**. They exist solely for internal dependency management and building the embedded assets. Each `package.json` contains a placeholder version `1.0.0` that remains unchanged, as these packages are only used internally within the monorepo.
+
+The built frontend assets (JavaScript bundles, HTML files, and configuration) are embedded directly into the Go module and exposed through the public API functions (`UI()`, `Report()`, `Config()`).
+
+### Go Module Versioning
+
+The repository is versioned as a standard Go module using **GitHub releases** with semantic versioning tags (e.g., `v0.1.0`, `v1.0.0`).
+
+- Release notes are maintained in the [`releases/`](./releases/) directory
+- Each release includes the compiled frontend assets embedded in the Go module
+- Consumers import this module to access the embedded assets at a specific version
+
+Example:
+```go
+import "github.com/grafana/xk6-dashboard-assets" // Uses the version specified in go.mod
+```
+
 ## Development
 
 ### Prerequisites
