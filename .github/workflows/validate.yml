@@ -1,0 +1,48 @@
+name: Validate
+
+permissions: {}
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        with:
+          persist-credentials: false
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          yarn install
+
+      - name: Build assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          yarn build
+
+      - name: Check for changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code --name-status
+
+      - name: Setup Go
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6
+        with:
+          go-version: "1.25.x"
+
+      - name: Test embedded assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          go test ./...
